@@ -20,7 +20,7 @@
         <div>
             <h3>原始循环</h3>
             <ol>
-                <li v-for="todo in todos">
+                <li v-for="todo in todoList">
                     {{ todo.text }}
                 </li>
             </ol>
@@ -34,7 +34,7 @@
                   我们也需要为每个组件提供一个“key”，稍后再
                   作详细解释。
                 -->
-                <todo-item v-for="item in todos" v-bind:todo="item" v-bind:key="item.id"></todo-item>
+                <todo-item v-for="item in todoList" v-bind:todo="item" v-bind:key="item.id"></todo-item>
             </ol>
         </div>
         <div>
@@ -45,9 +45,9 @@
         <div id="todo-list-example">
             <h3>待办列表</h3>
             <ul>
-                <li is="todo-list" v-for="(todo, index) in todos"
+                <li is="todo-list" v-for="(todo, index) in todoList"
                         v-bind:key="todo.id" v-bind:title="todo.text"
-                        v-on:remove="todos.splice(index, 1)"
+                        v-on:remove="todoList.splice(index, 1)"
                 ></li>
             </ul>
             <form v-on:submit.prevent="addNewTodo">
@@ -59,6 +59,10 @@
     </div>
     <div v-else>
         <button type="button" v-on:click="login">登录</button>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
     </div>
 </div>
 
@@ -71,6 +75,15 @@
         template: '<li>{{ title }}<button v-on:click="$emit(\'remove\')">Remove</button></li>',
         props: ['title']
     })
+    // 定义一个名为 button-counter 的新组件
+    Vue.component('button-counter', {
+        data: function () {
+            return {
+                count: 0
+            }
+        },
+        template: '<button v-on:click="count++">你点击了 {{ count }} 次.</button>'
+    })
     let vm = new Vue({
         el: '#app',
         data: {
@@ -82,7 +95,7 @@
             /*学习*/
             alexa: "100",
             seen: true,
-            todos: [
+            todoList: [
                 {id: 0, text: '学习 Vue'},
                 {id: 1, text: '学习LayUI'},
                 {id: 2, text: "学习Dockerfile"}
@@ -100,7 +113,7 @@
                 return "欢迎你" + this.loginName + " ,登录时间：" + new Date().toLocaleString();
             },
             addNewTodo: function () {//添加待办
-                this.todos.push({
+                this.todoList.push({
                     id: this.nextTodoId++,
                     text: this.newTodoText
                 })

@@ -1,0 +1,180 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>首页</title>
+    <link rel="stylesheet" href="plugins/layui-v2.4.5/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <!--导航栏-->
+    <!--<div class="layui-header">
+        <div class="layui-logo">layui 后台布局</div>
+        &lt;!&ndash; 头部区域（可配合layui已有的水平导航） &ndash;&gt;
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="">控制台</a></li>
+            <li class="layui-nav-item"><a href="">商品管理</a></li>
+            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    贤心
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退了</a></li>
+        </ul>
+    </div>-->
+    <!--菜单树-->
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="menuTree">
+                <!--<li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">所有商品</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">列表一</a></dd>
+                        <dd><a href="javascript:;">列表二</a></dd>
+                        <dd><a href="javascript:;">列表三</a></dd>
+                        <dd><a href="">超链接</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">解决方案</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">列表一</a></dd>
+                        <dd><a href="javascript:;">列表二</a></dd>
+                        <dd><a href="">超链接</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">云市场</a></li>
+                <li class="layui-nav-item"><a href="">发布商品</a></li>-->
+                <menu-tree v-for="item in menuTree" v-bind:menu-tree="item"></menu-tree>
+            </ul>
+        </div>
+    </div>
+    <!-- 内容主体区域 -->
+    <div class="layui-body">
+        <div style="padding: 15px;">内容主体区域</div>
+    </div>
+    <!-- 底部固定区域 -->
+    <div class="layui-footer">
+        © layui.com - 底部固定区域
+    </div>
+</div>
+<script src="/plugins/vue.min.js"></script>
+<script src="plugins/layui-v2.4.5/layui.js"></script>
+<script>
+
+    //JavaScript代码区域
+    layui.use('element', function(){
+        const element = layui.element;
+
+        /*菜单树组件*/
+        Vue.component('menu-tree', {
+            props: ['menuTree'],
+            template: '<li class="layui-nav-item"><a v-bing:href="menuTree.url">{{menuTree.title}}</a></li>'
+        })
+
+        let vm = new Vue({
+            data: {
+                menuTree:[
+                    {
+                        "id": 2,
+                        "title": "公司管理",
+                        "url": null,
+                        "icon": "fa fa fa-institution",
+                        "children": [{
+                            "id": 16,
+                            "title": "公司列表",
+                            "url": "module/drugstore/companylist.html",
+                            "icon": "fa fa-hospital-o",
+                            "children": []
+                        }]
+                    }, {
+                        "id": 5,
+                        "title": "会员管理",
+                        "url": null,
+                        "icon": "fa fa fa-user",
+                        "children": [{
+                            "id": 22,
+                            "title": "会员列表",
+                            "url": "module/member/memberlist.html",
+                            "icon": "fa fa-list-alt",
+                            "children": []
+                        }]
+                    }, {
+                        "id": 9,
+                        "title": "数据统计",
+                        "url": null,
+                        "icon": "fa fa fa-bar-chart",
+                        "children": [{
+                            "id": 30,
+                            "title": "使用统计",
+                            "url": "module/count/robotusecount.html",
+                            "icon": "fa fa-pie-chart",
+                            "children": []
+                        }]
+                    }, {
+                        "id": 10,
+                        "title": "财务管理",
+                        "url": null,
+                        "icon": "fa fa fa-money",
+                        "children": [{
+                            "id": 31,
+                            "title": "交易明细",
+                            "url": "module/finance/tradedetail.html",
+                            "icon": "fa fa-cny",
+                            "children": []
+                        }]
+                    }, {
+                        "id": 11,
+                        "title": "账号管理",
+                        "url": null,
+                        "icon": "fa fa fa-user-secret",
+                        "children": [{
+                            "id": 32,
+                            "title": "账号管理",
+                            "url": "module/account/account.html",
+                            "icon": "fa fa-user fa-fw",
+                            "children": []
+                        }, {
+                            "id": 33,
+                            "title": "角色管理",
+                            "url": "module/account/role.html",
+                            "icon": "fa fa-user-circle-o",
+                            "children": []
+                        }]
+                    }, {
+                        "id": 12,
+                        "title": "其他设置",
+                        "url": null,
+                        "icon": "fa fa fa-gear",
+                        "children": [{
+                            "id": 35,
+                            "title": "修改密码",
+                            "url": "module/other/resetpassword.html",
+                            "icon": "fa fa-key fa-fw",
+                            "children": []
+                        }]
+                    }
+                ]
+            }
+        });
+    });
+</script>
+</body>
+</html>
