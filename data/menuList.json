@@ -28,25 +28,13 @@
 		"title": "数据统计",
 		"url": null,
 		"icon": "fa fa fa-bar-chart",
-		"children": [{
-			"id": 30,
-			"title": "使用统计",
-			"url": "module/count/robotusecount.html",
-			"icon": "fa fa-pie-chart",
-			"children": []
-		}]
+		"children": []
 	}, {
 		"id": 10,
 		"title": "财务管理",
 		"url": null,
 		"icon": "fa fa fa-money",
-		"children": [{
-			"id": 31,
-			"title": "交易明细",
-			"url": "module/finance/tradedetail.html",
-			"icon": "fa fa-cny",
-			"children": []
-		}]
+		"children": []
 	}, {
 		"id": 11,
 		"title": "账号管理",

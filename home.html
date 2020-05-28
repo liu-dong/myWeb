@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="plugins/layui-v2.4.5/css/layui.css">
 </head>
 <body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
+<div id="app" class="layui-layout layui-layout-admin">
     <!--导航栏-->
     <!--<div class="layui-header">
         <div class="layui-logo">layui 后台布局</div>
@@ -40,11 +40,11 @@
     </div>-->
     <!--菜单树-->
     <div class="layui-side layui-bg-black">
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
         <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="menuTree">
+            <ul class="layui-nav layui-nav-tree" id="menuTree"  lay-filter="menuTree">
                 <!--<li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">所有商品</a>
+                    <a href="javascript:;">所有商品</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;">列表一</a></dd>
                         <dd><a href="javascript:;">列表二</a></dd>
@@ -62,7 +62,7 @@
                 </li>
                 <li class="layui-nav-item"><a href="">云市场</a></li>
                 <li class="layui-nav-item"><a href="">发布商品</a></li>-->
-                <menu-tree v-for="item in menuTree" v-bind:menu-tree="item"></menu-tree>
+<!--                <menu-tree v-for="item in menuTree" v-bind:menu-tree="item" v-bind:key="item.id"></menu-tree>-->
             </ul>
         </div>
     </div>
@@ -75,21 +75,46 @@
         © layui.com - 底部固定区域
     </div>
 </div>
-<script src="/plugins/vue.min.js"></script>
+<script src="plugins/vue.min.js"></script>
+<script src="js/menu.js"></script>
 <script src="plugins/layui-v2.4.5/layui.js"></script>
+<script src="plugins/jquery-2.1.0.js"></script>
 <script>
 
     //JavaScript代码区域
-    layui.use('element', function(){
+    layui.use(['element', 'jquery'], function () {
+        const $ = layui.jquery;
         const element = layui.element;
 
         /*菜单树组件*/
-        Vue.component('menu-tree', {
-            props: ['menuTree'],
-            template: '<li class="layui-nav-item"><a v-bing:href="menuTree.url">{{menuTree.title}}</a></li>'
+        // Vue.component('menu-tree', {
+        //     props: ['menuTree'],
+        //     template: '<li class="layui-nav-item"><a v-bing:href="menuTree.url">{{menuTree.title}}</a><dl class="layui-nav-child"><dd>LD</dd></dl>'
+        // })
+
+        $(function () {
+            loadMenu();
         })
+        //加载菜单
+        function loadMenu() {
+            $.ajax({
+                type: "GET",
+                url: "data/menuList.json",
+                dataType: "json",
+                success: function (result) {
+                    debugger
+                    let content = loadFirstMenu(result.data);
+                    $("#menuTree").append(content);
+                    element.init();
+                },
+                error: function (jqXHR) {
+                    alert("发生错误：" + jqXHR.status);
+                }
+            });
+        }
 
         let vm = new Vue({
+            el: '#menuTree',
             data: {
                 menuTree:[
                     {
@@ -172,6 +197,12 @@
                         }]
                     }
                 ]
+            },
+            created:function(){
+
+            },
+            methods: {
+
             }
         });
     });
