@@ -15,16 +15,26 @@ function loadFirstMenu(data) {
     return result;
 }
 
+//加载一级菜单
+function loadFirstNavigate(data) {
+    let result = "";
+    $.each(data, function (index, obj) {
+        let content = '<li class="layui-nav-item">';
+        content += '<a href="javascript:;" >' + obj.title + '</a>';
+        //这里是添加所有的子菜单
+        content += loadChildMenu(obj);
+        content += '</li>';
+        result += content;
+    });
+    return result;
+}
+
 //加载子菜单
 function loadChildMenu(obj) {
     let content = "";
     if (obj) {
         if (obj.children != null && obj.children.length > 0) {
             content += '<dl class="layui-nav-child">';
-        } else {
-            content += '<dl>';
-        }
-        if (obj.children != null && obj.children.length > 0) {
             $.each(obj.children, function (i, note) {
                 content += '<dd>';
                 content += '<a href="javascript:;" >' + note.title + '</a>';

@@ -1,0 +1,52 @@
+[
+    {
+        "id": 2,
+        "title": "控制台",
+        "url": null,
+        "icon": "fa fa fa-institution",
+        "children": []
+    },
+    {
+        "id": 5,
+        "title": "商品管理",
+        "url": null,
+        "icon": "fa fa fa-user",
+        "children": []
+    },
+    {
+        "id": 9,
+        "title": "用户",
+        "url": null,
+        "icon": "fa fa fa-bar-chart",
+        "children": []
+    },
+    {
+        "id": 10,
+        "title": "其他系统",
+        "url": null,
+        "icon": "fa fa fa-money",
+        "children": [
+            {
+                "id": 10,
+                "title": "邮件管理",
+                "url": null,
+                "icon": "fa fa fa-money",
+                "children": []
+            },
+            {
+                "id": 10,
+                "title": "消息管理",
+                "url": null,
+                "icon": "fa fa fa-money",
+                "children": []
+            },
+            {
+                "id": 10,
+                "title": "授权管理",
+                "url": null,
+                "icon": "fa fa fa-money",
+                "children": []
+            }
+        ]
+    }
+]
